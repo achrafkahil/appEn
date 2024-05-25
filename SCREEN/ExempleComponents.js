@@ -13,7 +13,7 @@ export default function ExempleComponents() {
     const [password, setPassword] = useState("");
 
     return (
-        <SafeAreaView>
+        <SafeAreaView style={{ backgroundColor:"#fff" }}>
             <Input
                 label={"Username"}
                 value={username}

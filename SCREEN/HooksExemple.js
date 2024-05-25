@@ -37,10 +37,12 @@ export default function HooksExemple() {
         setCounter(prev => prev+1 );
 
     }
-    const handleChange1 = () =>{
+    const goToBasic = () =>{
 
-       navigation.navigate("Basic",{ username : "NAME TEST", age : 24 });
+        //In simple navigate (Stack) : navigation.navigate("Basic",{ username : value, age : 24 });
 
+        //navigate screen in Bottoms-tabs (Tabs)
+        navigation.navigate('Tabs', { screen: "Basic" , params: { username : value }});
     }
 
     const handleText  = (val) =>{
@@ -49,8 +51,13 @@ export default function HooksExemple() {
 
     return (
         <View style={styles.container}>
-            <Text> {value} </Text>
             <Text> Counter : { counter } </Text>
+            <Button title={"Press me .."} color={'#f00'} onPress={handleChange} />
+
+            <View style={styles.separator} />
+
+            <Text> Search users </Text>
+            <Text> {value} </Text>
 
             <TextInput
                 style={styles.input}
@@ -58,8 +65,7 @@ export default function HooksExemple() {
                 placeholder={"placeholder ....."}
                 onChangeText={handleText}
             />
-            <Button title={"Press me .."} color={'#f00'} onPress={handleChange} />
-            <Button title={"GO TO .."} color={'#f00'} onPress={handleChange1} />
+            <Button title={"Go to basic with value in input"} color={'#f00'} onPress={goToBasic} />
             {
                 (usersFilter && usersFilter.length >0) && (
                     usersFilter.map((item, idx) =>{
@@ -91,4 +97,10 @@ const styles = StyleSheet.create({
         padding: 10,
         width:"60%"
     },
+    separator : {
+        width:'100%',
+        height:1,
+        backgroundColor:'#000',
+        marginVertical:15,
+    }
 });

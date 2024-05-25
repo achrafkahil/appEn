@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import {Button, ImageBackground, Image, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, View}
     from 'react-native';
-import {useNavigation, useRoute} from "@react-navigation/native";
+import {useIsFocused, useNavigation, useRoute} from "@react-navigation/native";
 
 export default function Basics() {
     const image = {uri: 'https://legacy.reactjs.org/logo-og.png'};
@@ -12,13 +12,14 @@ export default function Basics() {
     const [password, setPassword] = useState("");
     const [isPassword, setIsPassword] = useState(false);
 
+    const isFocused = useIsFocused();
     const navigation = useNavigation();
     const route= useRoute();
     const { params} = route;
 
     useEffect(() => {
-        setText(params.username);
-    }, []);
+        setText(params?.username ?? "");
+    }, [isFocused]);
 
     const handleChange = (val) =>{
         setText(val);
@@ -36,7 +37,7 @@ export default function Basics() {
     }
 
     return (
-        <SafeAreaView  >
+        <SafeAreaView  style={styles.containerFull}>
 
             {/*<ImageBackground source={image} resizeMode={"cover"} style={styles.image}>*/}
 
@@ -57,7 +58,7 @@ export default function Basics() {
                         value={password}
                         onChangeText={handleChangePassword}
                         placeholder={"fill input"}
-                        placeholderTextColor={"#0f0"}
+                        placeholderTextColor={"#00f"}
                         style={styles.input}
                         secureTextEntry={isPassword}
                     />
@@ -68,7 +69,7 @@ export default function Basics() {
 
                 <Button title={"Login"} onPress={clickBtn} />
 
-                <View>
+                <View style={{ marginHorizontal: 15 }}>
                     <Text numberOfLines={2}> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium assumenda facere itaque? Consectetur doloremque laborum nulla? A ab animi deleniti dolorem eius, iusto, libero, officiis porro quibusdam repudiandae totam voluptatibus. </Text>
                 </View>
 
@@ -103,6 +104,7 @@ const styles = StyleSheet.create({
     containerFull: {
         flex: 1,
         backgroundColor: '#fff',
+        paddingHorizontal:15,
     },
     input: {
         height: 40,
@@ -132,7 +134,8 @@ const styles = StyleSheet.create({
     tinyLogo: {
         width: 100,
         height: 100,
-        marginVertical: 20
+        marginVertical: 20,
+        marginLeft: 15
     },
     imageBg : {
 

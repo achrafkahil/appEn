@@ -19,12 +19,14 @@ export default function App() {
             screenOptions={{
                 tabBarShowLabel : true,
                 tabBarStyle:{
-                    backgroundColor:"#ccc",
+                    //backgroundColor:"#ccc",
                 }
             }}
           >
-              <Tab.Screen name="Detail" component={Detail} options={{ tabBarLabel:"Détails .." }} />
-              <Tab.Screen name="Contact" component={Contact} options={{ headerShown : false, tabBarLabel : "TEST " }}  />
+              <Tab.Screen name="Exemple2" component={ExempleComponents} options={{ tabBarLabel:"COMPONENT .." }} />
+              <Tab.Screen name="Basic" component={Basics} options={{ headerShown : false, tabBarLabel : "BASIC " }}  />
+              <Tab.Screen name="HooksExemple" component={HooksExemple} options={{ headerShown : false, tabBarLabel : "HOOKS  " }}  />
+
           </Tab.Navigator>
       )
   }
