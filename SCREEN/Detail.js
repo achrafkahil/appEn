@@ -6,18 +6,24 @@ import {useNavigation, useRoute} from "@react-navigation/native";
 
 export default function Detail() {
 
+    const arr = [1,2,3,4];
+    const arrColor = ["#F00", "#0F0", "#00F","cyan"]
 
     return (
-        <SafeAreaView  >
+        <SafeAreaView style={{ backgroundColor:"#000" , flex: 1, flexDirection:"row", justifyContent:"space-between",
+                                   alignItems:"flex-start" }} >
 
-
-                <View>
-                    <Text>
-                        DETAILS
-                    </Text>
-                </View>
-
-
+            {
+                arr.map((item, idx) => {
+                    return(
+                        <View key={idx} style={{ backgroundColor:arrColor[idx] }}>
+                            <Text style={{ color:"#000", fontSize:12, padding:2 }}>
+                                DETAILS TEST
+                            </Text>
+                        </View>
+                    )
+                })
+            }
 
         </SafeAreaView>
     );
@@ -26,7 +32,7 @@ export default function Detail() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#ccc',
         alignItems: 'center',
         justifyContent: 'center',
 

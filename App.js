@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import ExempleComponents from "./SCREEN/ExempleComponents";
 import {NavigationContainer} from "@react-navigation/native";
 import {createStackNavigator} from "@react-navigation/stack";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -7,6 +6,9 @@ import Basics from "./SCREEN/Basics";
 import HooksExemple from "./SCREEN/HooksExemple";
 import Detail from "./SCREEN/Detail";
 import Contact from "./SCREEN/Contact";
+import ExempleComponents from "./SCREEN/ExempleComponents";
+import StackNav from "./navigations/StackNav";
+import DrawerNav from "./navigations/DrawerNav";
 
 export default function App() {
 
@@ -33,12 +35,7 @@ export default function App() {
 
   return (
      <NavigationContainer>
-         <Stack.Navigator initialRouteName={"Tabs"} >
-             <Stack.Screen name="Exemple2" component={ExempleComponents} />
-             <Stack.Screen name="Basic" component={Basics} />
-             <Stack.Screen name="HooksExemple" component={HooksExemple}  />
-             <Stack.Screen name="Tabs" component={TabsNavigator} options={{ headerShown : false }} />
-         </Stack.Navigator>
+        <DrawerNav />
      </NavigationContainer>
   );
 }
