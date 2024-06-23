@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import {Image, SafeAreaView, ScrollView, StyleSheet, Text, View}
+import {Image, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View}
     from 'react-native';
 import Btn from "../components/Btn";
 import {useNavigation} from "@react-navigation/native";
 import Input from "../components/Input";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Checkbox from "expo-checkbox";
 
 export default function LoginScreen() {
 
     const navigation = useNavigation();
     const logo = 'https://reactnative.dev/img/tiny_logo.png';
 
+    const [isForMe, setIsForMe] = useState(false);
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("");
@@ -71,6 +73,22 @@ export default function LoginScreen() {
                     password={true}
                     type={"theme2"}
                 />
+
+                <TouchableOpacity
+                    style={[{flexDirection:"row", alignItems:"center",
+                         marginBottom: 10, marginLeft: 12 }]}
+
+                    onPress={() => setIsForMe(prev => !prev)}>
+
+                    <Checkbox
+                        value={isForMe}
+                        // onValueChange={() => setIsForMe(prev => !prev)}
+                        color={isForMe ? '#2E4EFF' : undefined}
+                        style={{ marginHorizontal : 10 }}
+                    />
+                    <Text>{'Rest connect'} </Text>
+
+                </TouchableOpacity>
 
                 <Btn title={"Login"} cls={"danger"} onPress={() =>{ navigation.navigate('Home', { email }) }}   />
                 <Btn title={"Create an account"} onPress={() =>{  }} />

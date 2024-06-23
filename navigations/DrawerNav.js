@@ -20,7 +20,7 @@ export default function DrawerNav(){
         >
             <Drawer.Screen name={"Index"} component={IndexScreen} />
             <Drawer.Screen name={"NewAccount"} component={NewAccountScreen} />
-            <Drawer.Screen name={"Home"} component={HomeScreen} />
+            <Drawer.Screen name={"Home"} component={HomeScreen} options={{ headerShown : false }} />
             <Drawer.Screen name={"Login"} component={LoginScreen} />
             <Drawer.Screen name={"Basic"} component={Basics} />
             <Drawer.Screen name={"Contact"} component={Contact} />

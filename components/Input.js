@@ -5,6 +5,7 @@ import {StyleSheet, Text, TextInput, View}
 export default function Input(props) {
 
     let lbl = props.label,
+        multuline = props?.multuline ?? false,
         type = props.type ?? "theme1";
 
     let vwStyle = {};
@@ -21,12 +22,12 @@ export default function Input(props) {
         <View style={[vwStyle, { padding :10 }]}>
             <Text style={labelStyle}> { lbl } </Text>
             <TextInput
-                style={[inputStyle]}
+                style={[inputStyle, multuline && { height: 80 }]}
                 value={props.value}
                 onChangeText={props.onChangeTxt}
                 placeholder={props.placeH}
                 secureTextEntry={props.password}
-
+                multiline={multuline}
             />
         </View>
     );

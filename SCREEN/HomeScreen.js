@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import {Image, SafeAreaView, ScrollView, StyleSheet, Text, View}
+import {Image, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View}
     from 'react-native';
-import Btn from "../components/Btn";
 import {useNavigation, useRoute} from "@react-navigation/native";
-import Input from "../components/Input";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 export default function HomeScreen() {
 
     const navigation = useNavigation();
     const route= useRoute();
     const { params} = route;
+
+    const logo = 'https://reactnative.dev/img/tiny_logo.png';
 
     const [mail, setMail] = useState("");
     const [nameUser, setNameUser] = useState("");
@@ -25,10 +26,10 @@ export default function HomeScreen() {
     useEffect(() => {
 
         const { email } = params; //params.email
-        //setMail(email);
+        setMail(email);
 
-        getData().then(res => setMail(res) );
-        getDataObj().then(r => setNameUser(r.name));
+        //getData().then(res => setMail(res) );
+        //getDataObj().then(r => setNameUser(r.name));
     }, []);
 
     const getData = async () => {
@@ -71,8 +72,43 @@ export default function HomeScreen() {
         )
     }
 
+    const renderMessageInfo = () =>{
+        return(
+            <View style={{ marginHorizontal : 20, marginTop:30 }}>
+                <View style={{ backgroundColor:"cyan", padding : 20, borderRadius : 8,
+                               borderLeftWidth : 4, borderLeftColor : "blue" }}>
+                    <Text style={{ marginBottom : 25, fontSize : 22 }}>TITLE MESSAGE</Text>
+                    <Text numberOfLines={4}>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                        Accusantium aliquid aspernatur dolor esse est impedit inventore nihil numquam
+                        obcaecati perspiciatis praesentium recusandae similique sint sit totam,
+                        ullam unde vel voluptate!
+                    </Text>
+                </View>
+            </View>
+        )
+    }
+
     return (
-        <SafeAreaView style={{ backgroundColor: "white" ,flexDirection:"column", flex: 1 }} >
+        <View style={{ backgroundColor: "white" ,flexDirection:"column", flex: 1 }} >
+
+            <View style={{ height: 200, backgroundColor:"cyan", paddingTop : 60, paddingHorizontal : 20 }}>
+               <View style={{ flexDirection:"row", justifyContent:"space-between" }}>
+                   <TouchableOpacity onPress={() => { navigation.openDrawer() }}>
+                       <Ionicons name="menu" size={35} />
+                   </TouchableOpacity>
+                   <Image source={{ uri : logo }} style={{ width:35, height:35 }} />
+
+                   <TouchableOpacity onPress={() =>{ alert('Notification') }}>
+                       <Ionicons name="notifications-circle" size={35} />
+                   </TouchableOpacity>
+               </View>
+
+                <View style={{ marginTop : 30 }}>
+                    <Text>Email : { mail } </Text>
+                </View>
+
+            </View>
 
             <View style={{ margin:20,}}>
                 <Text>Bonjour , { nameUser } </Text>
@@ -82,7 +118,9 @@ export default function HomeScreen() {
                 { renderCategories() }
             </View>
 
-        </SafeAreaView>
+            { renderMessageInfo() }
+
+        </View>
     );
 }
 
