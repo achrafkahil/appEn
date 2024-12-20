@@ -5,6 +5,7 @@ import {Button, StyleSheet, Text, TextInput, View}
 export default function Btn(props) {
 
     //info , warning , danger
+    //let cls = (props.cls) ? props.cls : "info";
     let cls = props.cls ?? "info";
 
     let color = "#000",
@@ -29,7 +30,11 @@ export default function Btn(props) {
 
     return (
         <View style={[{ backgroundColor:bgColor, width:"90%", marginHorizontal : 20, marginTop: 15 }]}>
-            <Button title={props.title} color={color} onPress={props.onPress ?? onPress} />
+            <Button
+                title={props.title}
+                color={color}
+                onPress={props.onPress ?? onPress}
+            />
         </View>
     );
 }

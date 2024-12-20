@@ -19,6 +19,7 @@ export default function NewAccountScreen() {
     const [showInfo, setShowInfo] = useState(false);
     const [email, setEmail] = useState("");
     const [fullname, setFullname] = useState("");
+    const [age, setAge] = useState("")
 
     useEffect(() => {
         setShowInfo(false);
@@ -48,9 +49,10 @@ export default function NewAccountScreen() {
                 <ScrollView  showsVerticalScrollIndicator={false}>
 
                     <Input
+                        type={"theme2"}
                         label={"Username"}
                         value={username}
-                        placeH={"Fill input "}
+                        placeH={"Fill input example ..."}
                         onChangeTxt={(text) => setUsername(text) }
                         password={false}
                     />

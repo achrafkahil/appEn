@@ -25,7 +25,8 @@ export default function Detail() {
     }, [isFocused]);
 
     return (
-        <SafeAreaView style={{ backgroundColor:"#fff" , flex: 1, flexDirection:"column", justifyContent:"space-between",
+        <SafeAreaView style={{ backgroundColor:"#fff" , flex: 1,
+                                flexDirection:"column", justifyContent:"space-between",
                                    alignItems:"flex-start" }} >
 
             <View style={{ marginTop: 40 }}>
@@ -52,7 +53,6 @@ export default function Detail() {
                             <Ionicons name="chatbubble-sharp" color={"#1abc9c"} size={18} />
                             <Text style={{ marginLeft : 10 }}>{ detailProduct?.rating?.count }</Text>
                         </View>
-
                     </View>
 
                     <View>
@@ -64,10 +64,10 @@ export default function Detail() {
 
             <View style={{ flexDirection:"row", alignItems:"center", position:"absolute", bottom : 30 }}>
                 <View style={{ width:"30%", flexDirection:"column" }}>
-                    <Text style={styles.txtPrice}>{ detailProduct?.price }</Text>
+                    <Text style={styles.txtPrice}>{ detailProduct?.price+'$' }</Text>
                 </View>
                 <View style={{ width:"65%", flexDirection:"column" }}>
-                    <Btn title={"Ajouter au panier"} />
+                    <Btn cls={"info"} title={"EXAMPLE"} />
                 </View>
 
             </View>

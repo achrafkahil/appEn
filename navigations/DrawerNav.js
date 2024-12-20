@@ -14,8 +14,11 @@ export default function DrawerNav(){
 
     const Drawer = createDrawerNavigator();
 
+
+
     return(
-        <Drawer.Navigator initialRouteName={"Home"}
+        <Drawer.Navigator
+                initialRouteName={"Home"}
                 drawerContent = { props => <DrawerNavCustom {...props} />  }
         >
             <Drawer.Screen name={"Index"} component={IndexScreen} />

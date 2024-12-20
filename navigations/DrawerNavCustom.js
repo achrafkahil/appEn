@@ -14,6 +14,9 @@ export default function DrawerNavCustom() {
     return(
         <SafeAreaView >
             <TouchableOpacity onPress={ () => { goTo("Index") } }  style={{ flexDirection:"row", marginLeft:10 , marginTop: 25}}>
+                <Text> APP ENSA - REACT-NATIVE </Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={ () => { goTo("Index") } }  style={{ flexDirection:"row", marginLeft:10 , marginTop: 25}}>
                 <Image source={{ uri : logo }} style={{ width:20, height:20 }}  />
                 <Text> Index </Text>
             </TouchableOpacity>

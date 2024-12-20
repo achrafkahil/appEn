@@ -24,7 +24,7 @@ export default function Input(props) {
             <TextInput
                 style={[inputStyle, multuline && { height: 80 }]}
                 value={props.value}
-                onChangeText={props.onChangeTxt}
+                onChangeText={props?.onChangeTxt}
                 placeholder={props.placeH}
                 secureTextEntry={props.password}
                 multiline={multuline}

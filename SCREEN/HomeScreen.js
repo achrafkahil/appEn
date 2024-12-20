@@ -5,8 +5,10 @@ import {useNavigation, useRoute} from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Btn from "../components/Btn";
+import {connect} from "react-redux";
+import {getAllProductsInfo} from "../redux/actions/AllProductsAction";
 
-export default function HomeScreen() {
+const HomeScreen = (props) => {
 
     const navigation = useNavigation();
     const route= useRoute();
@@ -55,6 +57,29 @@ export default function HomeScreen() {
         getProductByCategory()
     }, [linkProductByCategory]);
 
+    useEffect(() => {
+        props.getAllProductsInfo({limits:6});
+    }, []);
+
+    useEffect(() => {
+        setLoading(true);
+
+        if(props?.status && props?.dataProducts){
+            setLoading(false);
+            setDataProducts(props?.dataProducts);
+        }
+
+        else if(!props?.status && props?.error){
+            setLoading(false);
+            alert(props?.error);
+        }
+
+        else{
+            setLoading(false);
+        }
+
+    }, [props]);
+
     const getCategory = () =>{
 
         setLoadingCategory(true);
@@ -69,14 +94,14 @@ export default function HomeScreen() {
     }
 
     const getProductByCategory = () =>{
-        setLoading(true);
-        fetch(linkProductByCategory)
+        //setLoading(true);
+        /*fetch(linkProductByCategory)
             .then(res => res.json())
             .then(data =>{
                 setDataProducts(data)
                 console.log(data, "DATA PRODUCTS")
                 setLoading(false)
-            })
+            })*/
     }
 
     const getData = async () => {
@@ -113,7 +138,7 @@ export default function HomeScreen() {
 
                 <TouchableOpacity  key={"all"}
                                    onPress={() => { handleChangeLinkProduct("") }}
-                                   style={styles.vsCategory("all" == activeCategory)}>
+                                   style={styles.vsCategory("all" === activeCategory)}>
                     <Text > All </Text>
                 </TouchableOpacity>
 
@@ -121,9 +146,10 @@ export default function HomeScreen() {
                     (dataCategory && dataCategory.length>0) && (
                         dataCategory.map((item, idx) => {
                             return(
-                                <TouchableOpacity onPress={() => { handleChangeLinkProduct(dataCategory[idx]) }}
-                                                  key={idx}
-                                                  style={styles.vsCategory(dataCategory[idx] == activeCategory)}>
+                                <TouchableOpacity
+                                    onPress={() => { handleChangeLinkProduct(dataCategory[idx]) }}
+                                    key={idx}
+                                    style={styles.vsCategory(dataCategory[idx] === activeCategory)}>
                                     <Text style={{ color : item.txtColor }}> {dataCategory[idx]} </Text>
                                 </TouchableOpacity>
                             )
@@ -166,7 +192,8 @@ export default function HomeScreen() {
                    return(
                        <TouchableOpacity onPress={() =>{ navigation.navigate("Detail", {detail : item}) }}
                                          key={idx}
-                                         style={{ width:170, marginBottom:15, borderWidth:1, borderColor:"#c7ecee",
+                                         style={{ width:170, marginBottom:15, borderWidth:1,
+                                                borderColor:"#c7ecee",
                                                 paddingTop:14, borderRadius: 10}}>
                            <>
                                 <Image source={{ uri : item?.image }}
@@ -177,7 +204,7 @@ export default function HomeScreen() {
                            </>
                            <View style={{ margin:10 }}>
                                <Text numberOfLines={1}>{ item?.title }</Text>
-                               <Text>{ item?.price }</Text>
+                               <Text>{ item?.price+' $' }</Text>
                                <Text numberOfLines={1} >{ item?.category }</Text>
                            </View>
                        </TouchableOpacity>
@@ -187,20 +214,20 @@ export default function HomeScreen() {
         )
     }
 
-    return (
-        <View style={{ backgroundColor: "white" ,flexDirection:"column", flex: 1 }} >
-
+    const renderHeader = () =>{
+        return(
             <View style={{ height: 200, backgroundColor:"#dff9fb", paddingTop : 70, paddingHorizontal : 20 }}>
-               <View style={{ flexDirection:"row", justifyContent:"space-between" }}>
-                   <TouchableOpacity onPress={() => { navigation.openDrawer() }}>
-                       <Ionicons name="menu" size={25} />
-                   </TouchableOpacity>
-                   <Image source={{ uri : logo }} style={{ width:25, height:25 }} />
+                <View style={{ flexDirection:"row", justifyContent:"space-between" }}>
+                    <TouchableOpacity onPress={() => { navigation.openDrawer() }}>
+                        <Ionicons name="menu" size={25} />
+                    </TouchableOpacity>
 
-                   <TouchableOpacity onPress={() =>{ alert('Notification') }}>
-                       <Ionicons name="notifications-circle" size={25} />
-                   </TouchableOpacity>
-               </View>
+                    <Image source={{ uri : logo }} style={{ width:25, height:25 }} />
+
+                    <TouchableOpacity onPress={() =>{ alert('Notification') }}>
+                        <Ionicons name="notifications-circle" size={25} />
+                    </TouchableOpacity>
+                </View>
 
                 <View style={{ marginTop : 30 }}>
                     <Text>Bonjour { nameUser } </Text>
@@ -208,6 +235,13 @@ export default function HomeScreen() {
                 </View>
 
             </View>
+        )
+    }
+
+    return (
+        <View style={{ backgroundColor: "white" ,flexDirection:"column", flex: 1 }} >
+
+            { renderHeader() }
 
             <ScrollView style={{ marginBottom:60 , marginHorizontal: 20}}>
 
@@ -243,7 +277,6 @@ export default function HomeScreen() {
     );
 }
 
-
 const styles = StyleSheet.create({
     vsCategory: (isActive) => ({
         padding:10,
@@ -253,3 +286,14 @@ const styles = StyleSheet.create({
         backgroundColor: isActive ? "#c7ecee" : "transparent",
     }),
 });
+
+const mapStateToProps = state => {
+    return {
+        status  : state.allProducts.status,
+        error   : state.allProducts.error,
+        loading : state.allProducts.loading,
+        dataProducts    : state.allProducts.data
+    }
+}
+
+export default connect( mapStateToProps, { getAllProductsInfo } )(HomeScreen);
