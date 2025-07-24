@@ -32,6 +32,10 @@ export default function DrawerNavCustom() {
                 <Image source={{ uri : logo }} style={{ width:20, height:20 }}  />
                 <Text> Card </Text>
             </TouchableOpacity>
+            <TouchableOpacity  onPress={ () => { goTo("Roles") } }  style={{ flexDirection:"row", marginLeft:10, marginTop: 25 }}>
+                <Image source={{ uri : logo }} style={{ width:20, height:20 }}  />
+                <Text> Roles </Text>
+            </TouchableOpacity>
         </SafeAreaView>
     )
 
