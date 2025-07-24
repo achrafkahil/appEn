@@ -9,6 +9,7 @@ import IndexScreen from "../SCREEN/IndexScreen";
 import NewAccountScreen from "../SCREEN/NewAccountScreen";
 import LoginScreen from "../SCREEN/LoginScreen";
 import HomeScreen from "../SCREEN/HomeScreen";
+import RoleManagementScreen from "../SCREEN/RoleManagementScreen";
 
 export default function DrawerNav(){
 
@@ -30,6 +31,7 @@ export default function DrawerNav(){
             <Drawer.Screen name={"Hooks"} component={HooksExemple} />
             <Drawer.Screen name={"Detail"} component={Detail} />
             <Drawer.Screen name={"Card"} component={Card} />
+            <Drawer.Screen name={"Roles"} component={RoleManagementScreen} />
         </Drawer.Navigator>
     )
 
